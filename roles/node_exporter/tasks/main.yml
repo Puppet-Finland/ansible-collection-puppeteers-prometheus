@@ -3,6 +3,7 @@
   ansible.builtin.assert:
     that:
       - node_exporter_firewalld_zone is string
+      - node_exporter_systemd_unit_include is string
 
 - name: install package
   ansible.builtin.package:
