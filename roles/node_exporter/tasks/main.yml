@@ -26,10 +26,10 @@
     group: root
     mode: '0755'
 
-- name: puppeteers.prometheus.node_exporter | enable textfile collector
+- name: puppeteers.prometheus.node_exporter | configure node exporter
   ansible.builtin.template:
-    src: templates/01_textfile_collector.conf.j2
-    dest: /etc/systemd/system/node_exporter.service.d/01_textfile_collector.conf
+    src: templates/01_ansible.conf.j2
+    dest: /etc/systemd/system/node_exporter.service.d/01_ansible.conf
     owner: root
     group: root
     mode: '0640'
