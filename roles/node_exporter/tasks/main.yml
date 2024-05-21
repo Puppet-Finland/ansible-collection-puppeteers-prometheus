@@ -1,16 +1,16 @@
 ---
-- name: puppeteers.prometheus.node_exporter | validate parameters
+- name: validate parameters
   ansible.builtin.assert:
     that:
       - node_exporter_firewalld_zone is string
 
-- name: puppeteers.prometheus.node_exporter | install package
+- name: install package
   ansible.builtin.package:
     name: prometheus-node-exporter
     state: present
-  notify: puppeteers.prometheus.node_exporter | restart service
+  notify: restart service
 
-- name: puppeteers.prometheus.node_exporter | create textfile collector directory
+- name: create textfile collector directory
   ansible.builtin.file:
     path: /var/lib/node_exporter/textfile_collector
     state: directory
@@ -18,7 +18,7 @@
     group: node-exporter
     mode: '0755'
 
-- name: puppeteers.prometheus.node_exporter | create systemd override directory
+- name: create systemd override directory
   ansible.builtin.file:
     path: /etc/systemd/system/node_exporter.service.d
     state: directory
@@ -26,7 +26,7 @@
     group: root
     mode: '0755'
 
-- name: puppeteers.prometheus.node_exporter | configure node exporter
+- name: configure node exporter
   ansible.builtin.template:
     src: templates/01_ansible.conf.j2
     dest: /etc/systemd/system/node_exporter.service.d/01_ansible.conf
@@ -35,15 +35,15 @@
     mode: '0640'
   notify:
     - systemctl daemon-reload
-    - puppeteers.prometheus.node_exporter | restart service
+    - restart service
 
-- name: puppeteers.prometheus.node_exporter | enable service
+- name: enable service
   ansible.builtin.service:
     name: node_exporter
     enabled: true
     state: started
 
-- name: puppeteers.prometheus.node_exporter | open hole in firewall
+- name: open hole in firewall
   ansible.builtin.firewalld:
     zone: "{{ node_exporter_firewalld_zone }}"
     service: prometheus-node-exporter

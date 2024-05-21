@@ -2,7 +2,7 @@
   ansible.builtin.command:
     cmd: systemctl daemon-reload
 
-- name: puppeteers.prometheus.node_exporter | restart service
+- name: restart service
   ansible.builtin.service:
     name: node_exporter
     state: restarted
