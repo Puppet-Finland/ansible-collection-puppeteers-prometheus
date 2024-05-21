@@ -1,0 +1,18 @@
+namespace: puppeteers
+name: prometheus
+version: 0.5.0
+readme: README.md
+authors:
+- Samuli Seppänen <samuli.seppanen@puppeteers.net>
+description: Various roles related to Prometheus
+license:
+- BSD-2-Clause
+tags:
+- prometheus
+- alertmanager
+- redhat
+
+repository: https://github.com/Puppet-Finland/ansible-collection-puppeteers-prometheus.git
+documentation: https://github.com/Puppet-Finland/ansible-collection-puppeteers-prometheus/README.md
+homepage: https://github.com/Puppet-Finland/ansible-collection-puppeteers-prometheus
+issues: https://github.com/Puppet-Finland/ansible-collection-puppeteers-prometheus/issues
