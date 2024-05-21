@@ -1,4 +1,9 @@
 ---
+- name: puppeteers.prometheus.node_exporter | validate parameters
+  ansible.builtin.assert:
+    that:
+      - node_exporter_firewalld_zone is string
+
 - name: puppeteers.prometheus.node_exporter | install package
   ansible.builtin.package:
     name: prometheus-node-exporter
