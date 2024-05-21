@@ -1,6 +1,6 @@
 namespace: puppeteers
 name: prometheus
-version: 0.7.0
+version: 0.8.0
 readme: README.md
 authors:
 - Samuli Seppänen <samuli.seppanen@puppeteers.net>
