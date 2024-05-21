@@ -12,7 +12,9 @@ This role has no external dependencies.
 
 ## Role variables
 
-This role has no variables.
+This role has the following variables:
+
+* *node_exporter_firewalld_zone:* the firewall zone in which traffic to the Node Exporter port (9100/tcp) should allowed (defaults to "public")
 
 ## License
 

@@ -9,3 +9,11 @@
     name: node_exporter
     enabled: true
     state: started
+
+- name: puppeteers.prometheus.node_exporter | open hole in firewall
+  ansible.builtin.firewalld:
+    zone: "{{ node_exporter_firewalld_zone }}"
+    service: prometheus-node-exporter
+    state: enabled
+    immediate: true
+    permanent: true
