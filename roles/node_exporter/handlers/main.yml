@@ -1,0 +1,4 @@
+- name: puppeteers.prometheus.node_exporter | restart service
+  ansible.builtin.service:
+    name: node_exporter
+    state: restarted

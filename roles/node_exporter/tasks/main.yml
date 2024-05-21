@@ -8,6 +8,32 @@
   ansible.builtin.package:
     name: prometheus-node-exporter
     state: present
+  notify: puppeteers.prometheus.node_exporter | restart service
+
+- name: puppeteers.prometheus.node_exporter | create textfile collector directory
+  ansible.builtin.file:
+    path: /var/lib/node_exporter/textfile_collector
+    state: directory
+    owner: node-exporter
+    group: node-exporter
+    mode: '0755'
+
+- name: puppeteers.prometheus.node_exporter | create systemd override directory
+  ansible.builtin.file:
+    path: /etc/systemd/system/node_exporter.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: puppeteers.prometheus.node_exporter | enable textfile collector
+  ansible.builtin.template:
+    src: templates/01_textfile_collector.conf.j2
+    dest: /etc/systemd/system/node_exporter.service.d/01_textfile_collector.conf
+    owner: root
+    group: root
+    mode: '0640'
+  notify: puppeteers.prometheus.node_exporter | restart service
 
 - name: puppeteers.prometheus.node_exporter | enable service
   ansible.builtin.service:

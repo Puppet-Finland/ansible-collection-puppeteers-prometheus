@@ -1,0 +1,5 @@
+[Service]
+ExecStart=
+ExecStart=/opt/node_exporter/node_exporter \
+--collector.systemd \
+--collector.textfile.directory=/var/lib/node_exporter/textfile_collector
