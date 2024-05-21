@@ -1,10 +1,10 @@
 ---
-- name: install node-exporter
+- name: puppeteers.prometheus.node_exporter | install package
   ansible.builtin.package:
     name: prometheus-node-exporter
     state: present
 
-- name: enable node-exporter
+- name: puppeteers.prometheus.node_exporter | enable service
   ansible.builtin.service:
     name: node_exporter
     enabled: true
