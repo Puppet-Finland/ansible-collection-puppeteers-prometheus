@@ -4,6 +4,11 @@
     that:
       - robot_collector_version is string
 
+- name:  puppeteers.prometheus.robot_collector | install git
+  ansible.builtin.package:
+    name: git
+    state: present
+
 - name: puppeteers.prometheus.robot_collector | robot collector git repository
   ansible.builtin.git:
     repo: "https://github.com/Puppet-Finland/robot-collector.git"
