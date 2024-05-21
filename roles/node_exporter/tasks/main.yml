@@ -33,7 +33,9 @@
     owner: root
     group: root
     mode: '0640'
-  notify: puppeteers.prometheus.node_exporter | restart service
+  notify:
+    - systemctl daemon-reload
+    - puppeteers.prometheus.node_exporter | restart service
 
 - name: puppeteers.prometheus.node_exporter | enable service
   ansible.builtin.service:
