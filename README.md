@@ -3,6 +3,7 @@
 This collections includes various related to Prometheus:
 
 * [puppeteers.prometheus.node_exporter](roles/node_exporter/README.md)
+* [puppeteers.prometheus.robot_collector](roles/robot_collector/README.md)
 
 See the roles for more details.
 
