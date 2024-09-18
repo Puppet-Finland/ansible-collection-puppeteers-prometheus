@@ -1,4 +1,4 @@
-# cloudwatch-exporter
+# puppeteers.prometheus.cloudwatch-exporter
 
 This is an Ansible role for managing cloudwatch-exporter. This supports
 installation of cloudwatch-exporter from a DNF repo (if such exists for you)
