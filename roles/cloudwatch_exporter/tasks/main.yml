@@ -2,6 +2,8 @@
 - name: Validate parameters
   ansible.builtin.assert:
     that:
+      - puppeteers_prometheus_cloudwatch_exporter_manage_firewalld is boolean
+      - puppeteers_prometheus_cloudwatch_exporter_manage_package is boolean
       - puppeteers_prometheus_cloudwatch_exporter_firewalld_zone is string
       - puppeteers_prometheus_cloudwatch_exporter_port is number
 
