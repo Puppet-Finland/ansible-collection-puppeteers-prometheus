@@ -1,0 +1,4 @@
+---
+puppeteers_prometheus_alertmanager_misc_manage_firewalld: false
+puppeteers_prometheus_alertmanager_misc_firewalld_zone: public
+puppeteers_prometheus_alertmanager_misc_port: 9093
