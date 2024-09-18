@@ -1,0 +1,16 @@
+---
+- name: Validate parameters
+  ansible.builtin.assert:
+    that:
+      - puppeteers_prometheus_prometheus_misc_manage_firewalld is boolean
+      - puppeteers_prometheus_prometheus_misc_firewalld_zone is string
+      - puppeteers_prometheus_prometheus_misc_port is number
+
+- name: Open port in firewalld
+  ansible.posix.firewalld:
+    zone: "{{ puppeteers_prometheus_prometheus_misc_firewalld_zone }}"
+    port: "{{ puppeteers_prometheus_prometheus_misc_port }}/tcp"
+    state: enabled
+    immediate: true
+    permanent: true
+  when: puppeteers_prometheus_prometheus_misc_manage_firewalld

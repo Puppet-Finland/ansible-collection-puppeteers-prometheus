@@ -1,0 +1,5 @@
+---
+puppeteers_prometheus_prometheus_misc_manage_firewalld: false
+puppeteers_prometheus_prometheus_misc_firewalld_zone: public
+puppeteers_prometheus_prometheus_misc_port: 9090
+
