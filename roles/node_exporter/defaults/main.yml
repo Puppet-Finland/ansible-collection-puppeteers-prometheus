@@ -1,3 +1,0 @@
----
-node_exporter_firewalld_zone: public
-node_exporter_systemd_unit_include: sshd.service|httpd.service|podman.service|systemd-resolved.service|prometheus.service|alertmanager.service|node_exporter.service

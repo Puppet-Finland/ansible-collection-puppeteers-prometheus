@@ -1,6 +1,0 @@
-[Service]
-ExecStart=
-ExecStart=/opt/node_exporter/node_exporter \
---collector.systemd \
---collector.systemd.unit-include={{ node_exporter_systemd_unit_include }} \
---collector.textfile.directory=/var/lib/node_exporter/textfile_collector

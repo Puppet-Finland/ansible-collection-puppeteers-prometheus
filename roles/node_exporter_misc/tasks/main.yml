@@ -1,0 +1,16 @@
+---
+- name: Validate parameters
+  ansible.builtin.assert:
+    that:
+      - puppeteers_prometheus_node_exporter_misc_manage_firewalld is boolean
+      - puppeteers_prometheus_node_exporter_misc_firewalld_zone is string
+      - puppeteers_prometheus_node_exporter_misc_port is number
+
+- name: open hole in firewall
+  ansible.builtin.firewalld:
+    zone: "{{ puppeteers_prometheus_node_exporter_misc_firewalld_zone }}"
+    port: "{{ puppeteers_prometheus_node_exporter_misc_port }}/tcp"
+    state: enabled
+    immediate: true
+    permanent: true
+  when: puppeteers_prometheus_node_exporter_misc_manage_firewalld
