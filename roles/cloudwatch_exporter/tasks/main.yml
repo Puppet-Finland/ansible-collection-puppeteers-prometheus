@@ -1,0 +1,32 @@
+---
+- name: Validate parameters
+  ansible.builtin.assert:
+    that:
+      - puppeteers_prometheus_cloudwatch_exporter_firewalld_zone is string
+      - puppeteers_prometheus_cloudwatch_exporter_port is number
+
+- name: Validate package name
+  ansible.builtin.assert:
+    that: puppeteers_prometheus_cloudwatch_exporter_package_name is string
+  when: puppeteers_prometheus_cloudwatch_exporter_manage_package
+
+- name: Install cloudwatch-exporter package
+  ansible.builtin.package:
+    name: "{{ puppeteers_prometheus_cloudwatch_exporter_package_name }}"
+    state: present
+  when: puppeteers_prometheus_cloudwatch_exporter_manage_package
+
+- name: Ensure that cloudwatch-exporter service is enabled and running
+  ansible.builtin.service:
+    name: cloudwatch-exporter
+    enabled: true
+    state: started
+
+- name: Open port in firewalld
+  ansible.posix.firewalld:
+    zone: "{{ puppeteers_prometheus_cloudwatch_exporter_firewalld_zone }}"
+    port: "{{ puppeteers_prometheus_cloudwatch_exporter_port }}/tcp"
+    state: enabled
+    immediate: true
+    permanent: true
+  when: puppeteers_prometheus_cloudwatch_exporter_manage_firewalld
