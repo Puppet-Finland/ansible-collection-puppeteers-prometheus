@@ -8,6 +8,7 @@
       - puppeteers_prometheus_cloudwatch_exporter_port is number
       - puppeteers_prometheus_cloudwatch_exporter_aws_access_key_id is string
       - puppeteers_prometheus_cloudwatch_exporter_aws_secret_access_key is string
+      - puppeteers_prometheus_cloudwatch_exporter_config is string
 
 - name: Validate package name
   ansible.builtin.assert:
@@ -27,6 +28,14 @@
     owner: root
     group: cloudwatch
     mode: '0640'
+
+- name: Ensure cloudwatch-exporter config.yaml
+  ansible.builtin.copy:
+    content: "{{ puppeteers_prometheus_cloudwatch_exporter_config }}"
+    dest: /etc/cloudwatch-exporter/config.yaml
+    owner: root
+    group: root
+    mode: '0644'
 
 - name: Ensure that cloudwatch-exporter service is enabled and running
   ansible.builtin.service:
