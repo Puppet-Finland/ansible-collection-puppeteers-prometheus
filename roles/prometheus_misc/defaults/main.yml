@@ -2,4 +2,4 @@
 puppeteers_prometheus_prometheus_misc_manage_firewalld: false
 puppeteers_prometheus_prometheus_misc_firewalld_zone: public
 puppeteers_prometheus_prometheus_misc_port: 9090
-
+puppeteers_prometheus_prometheus_misc_extra_alert_rules: '# No extra rules configured in puppeteers.prometheus.prometheus_misc role'

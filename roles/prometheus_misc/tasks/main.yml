@@ -5,6 +5,15 @@
       - puppeteers_prometheus_prometheus_misc_manage_firewalld is boolean
       - puppeteers_prometheus_prometheus_misc_firewalld_zone is string
       - puppeteers_prometheus_prometheus_misc_port is number
+      - puppeteers_prometheus_prometheus_misc_extra_alert_rules is string
+
+- name: Add additional alert rules
+  ansible.builtin.copy:
+    content: "{{ puppeteers_prometheus_prometheus_misc_extra_alert_rules }}"
+    dest: /etc/prometheus/rules/prometheus_misc_extra.rules
+    owner: root
+    group: prometheus
+    mode: '0640'
 
 - name: Open port in firewalld
   ansible.posix.firewalld:
