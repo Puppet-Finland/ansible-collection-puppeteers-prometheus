@@ -1,0 +1,6 @@
+# Taken from prometheus.prometheus.prometheus role
+- name: Reload prometheus
+  listen: "reload prometheus"
+  ansible.builtin.systemd:
+    name: prometheus
+    state: reloaded
