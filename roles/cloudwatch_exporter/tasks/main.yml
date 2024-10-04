@@ -21,6 +21,14 @@
     state: present
   when: puppeteers_prometheus_cloudwatch_exporter_manage_package
 
+- name: Ensure that /etc/cloudwatch-exporter is created
+  ansible.builtin.file:
+    path: /etc/cloudwatch-exporter
+    state: directory
+    owner: root
+    group: cloudwatch
+    mode: '0750'
+
 - name: Ensure that AWS profile is installed
   ansible.builtin.template:
     src: templates/aws_profile.j2
