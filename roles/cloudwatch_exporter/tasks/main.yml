@@ -29,10 +29,10 @@
     group: cloudwatch
     mode: '0750'
 
-- name: Ensure that AWS profile is installed
+- name: Ensure that AWS credentials file is installed
   ansible.builtin.template:
-    src: templates/aws_profile.j2
-    dest: /etc/cloudwatch-exporter/aws_profile
+    src: templates/aws_credentials_file.j2
+    dest: /etc/cloudwatch-exporter/aws_credentials_file
     owner: root
     group: cloudwatch
     mode: '0640'
