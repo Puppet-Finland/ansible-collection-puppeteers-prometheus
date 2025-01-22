@@ -1,0 +1,4 @@
+- name: restart cloudwatch-exporter
+  ansible.builtin.service:
+    name: cloudwatch-exporter
+    state: restarted

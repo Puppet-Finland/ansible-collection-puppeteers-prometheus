@@ -44,6 +44,8 @@
     owner: root
     group: root
     mode: '0644'
+  notify:
+    - restart cloudwatch-exporter
 
 - name: Ensure that cloudwatch-exporter service is enabled and running
   ansible.builtin.service:
