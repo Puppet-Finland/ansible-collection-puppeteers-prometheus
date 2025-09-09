@@ -5,10 +5,10 @@
       - puppeteers_prometheus_azure_metrics_exporter_manage_firewalld is boolean
       - puppeteers_prometheus_azure_metrics_exporter_manage_package is boolean
       - puppeteers_prometheus_azure_metrics_exporter_firewalld_zone is string
-      - puppeteers_prometheus_azure_metrics_exporter_client_id
-      - puppeteers_prometheus_azure_metrics_exporter_client_secret
-      - puppeteers_prometheus_azure_metrics_exporter_tenant_id
-      - puppeteers_prometheus_azure_metrics_exporter_servicediscovery_subscription_id
+      - puppeteers_prometheus_azure_metrics_exporter_client_id is defined
+      - puppeteers_prometheus_azure_metrics_exporter_client_secret is defined
+      - puppeteers_prometheus_azure_metrics_exporter_tenant_id is defined
+      - puppeteers_prometheus_azure_metrics_exporter_servicediscovery_subscription_id is defined
 
 - name: open hole in firewall
   ansible.builtin.firewalld:
