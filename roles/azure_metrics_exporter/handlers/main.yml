@@ -1,0 +1,5 @@
+---
+- name: restart azure_metrics_exporter
+  ansible.builtin.service:
+    name: azure_metrics_exporter
+    state: restarted

@@ -1,0 +1,44 @@
+---
+- name: Validate parameters
+  ansible.builtin.assert:
+    that:
+      - puppeteers_prometheus_azure_metrics_exporter_manage_firewalld is boolean
+      - puppeteers_prometheus_azure_metrics_exporter_manage_package is boolean
+      - puppeteers_prometheus_azure_metrics_exporter_firewalld_zone is string
+      - puppeteers_prometheus_azure_metrics_exporter_client_id
+      - puppeteers_prometheus_azure_metrics_exporter_client_secret
+      - puppeteers_prometheus_azure_metrics_exporter_tenant_id
+      - puppeteers_prometheus_azure_metrics_exporter_servicediscovery_subscription_id
+
+- name: open hole in firewall
+  ansible.builtin.firewalld:
+    zone: "{{ puppeteers_prometheus_azure_metrics_exporter_firewalld_zone }}"
+    port: "8080/tcp"
+    state: enabled
+    immediate: true
+    permanent: true
+  when: puppeteers_prometheus_azure_metrics_exporter_manage_firewalld
+
+- name: azure_metrics_exporter install
+  ansible.builtin.package:
+    name: prometheus-azure-metrics-exporter
+    state: present
+  when: puppeteers_prometheus_azure_metrics_exporter_manage_package
+  notify:
+    - restart azure_metrics_exporter
+
+- name: azure_metrics_exporter configuration file
+  ansible.builtin.template:
+    src: templates/azure-metrics-exporter.env.j2
+    dest: /etc/azure-metrics-exporter/azure-metrics-exporter.env
+    owner: root
+    group: azure-metrics-exporter
+    mode: '0640'
+  notify:
+    - restart azure_metrics_exporter
+
+- name: azure_metrics_exporter service
+  ansible.builtin.service:
+    name: azure_metrics_exporter
+    enabled: true
+    state: started

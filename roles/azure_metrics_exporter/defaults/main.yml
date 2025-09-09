@@ -1,0 +1,6 @@
+---
+puppeteers_prometheus_azure_metrics_exporter_manage_firewalld: false
+puppeteers_prometheus_azure_metrics_exporter_manage_package: true
+puppeteers_prometheus_azure_metrics_exporter_firewalld_zone: public
+puppeteers_prometheus_azure_metrics_exporter_port: 9191
+
