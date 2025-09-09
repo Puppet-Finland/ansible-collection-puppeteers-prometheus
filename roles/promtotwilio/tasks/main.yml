@@ -1,0 +1,45 @@
+---
+- name: Validate parameters
+  ansible.builtin.assert:
+    that:
+      - puppeteers_prometheus_promtotwilio_manage_firewalld is boolean
+      - puppeteers_prometheus_promtotwilio_manage_package is boolean
+      - puppeteers_prometheus_promtotwilio_firewalld_zone is string
+      - puppeteers_prometheus_promtotwilio_sid is defined
+      - puppeteers_prometheus_promtotwilio_token is defined
+      - puppeteers_prometheus_promtotwilio_sender is string
+      - puppeteers_prometheus_promtotwilio_receiver is string
+      - puppeteers_prometheus_promtotwilio_port is number
+
+- name: open hole in firewall
+  ansible.builtin.firewalld:
+    zone: "{{ puppeteers_prometheus_promtotwilio_firewalld_zone }}"
+    port: "{{ puppeteers_prometheus_promtotwilio_port }}/tcp"
+    state: enabled
+    immediate: true
+    permanent: true
+  when: puppeteers_prometheus_promtotwilio_manage_firewalld
+
+- name: promtotwilio install
+  ansible.builtin.package:
+    name: promtotwilio
+    state: present
+  when: puppeteers_prometheus_promtotwilio_manage_package
+  notify:
+    - restart promtotwilio
+
+- name: promtotwilio configuration file
+  ansible.builtin.template:
+    src: templates/promtotwilio.conf.j2
+    dest: /etc/promtotwilio.conf
+    owner: root
+    group: promtotwilio
+    mode: '0640'
+  notify:
+    - restart promtotwilio
+
+- name: promtotwilio service
+  ansible.builtin.service:
+    name: promtotwilio
+    enabled: true
+    state: started

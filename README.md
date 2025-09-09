@@ -7,6 +7,7 @@ This collections includes various related to Prometheus:
 * [puppeteers.prometheus.cloudwatch_exporter](roles/cloudwatch_exporter/README.md)
 * [puppeteers.prometheus.node_exporter_misc](roles/node_exporter_misc/README.md)
 * [puppeteers.prometheus.robot_collector](roles/robot_collector/README.md)
+* [puppeteers.prometheus.promtotwilio](roles/promtotwilio/README.md)
 
 See the roles for more details.
 

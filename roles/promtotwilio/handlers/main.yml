@@ -1,0 +1,5 @@
+---
+- name: restart promtotwilio
+  ansible.builtin.service:
+    name: promtotwilio
+    state: restarted

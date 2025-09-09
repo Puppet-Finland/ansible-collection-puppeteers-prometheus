@@ -1,0 +1,6 @@
+---
+puppeteers_prometheus_promtotwilio_manage_firewalld: false
+puppeteers_prometheus_promtotwilio_manage_package: true
+puppeteers_prometheus_promtotwilio_firewalld_zone: public
+puppeteers_prometheus_promtotwilio_port: 9191
+
