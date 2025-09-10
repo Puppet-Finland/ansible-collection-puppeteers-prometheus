@@ -13,7 +13,7 @@
     state: present
     disable_gpg_check: true
   notify:
-    - Restart update-exporter
+    - Restart updates-exporter
 
 - name: Set up update-exporter service
   ansible.builtin.service:
