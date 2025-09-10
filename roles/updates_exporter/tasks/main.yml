@@ -1,0 +1,31 @@
+---
+- name: Validate parameters
+  ansible.builtin.assert:
+    that:
+      - puppeteers_prometheus_updates_exporter_download_url is string
+      - puppeteers_prometheus_updates_exporter_manage_firewalld is boolean
+      - puppeteers_prometheus_updates_exporter_firewalld_zone is string
+      - puppeteers_prometheus_updates_exporter_port is number
+
+- name: Install updates-exporter
+  ansible.builtin.dnf:
+    name: "{{ puppeteers_prometheus_updates_exporter_download_url }}"
+    state: present
+    disable_gpg_check: true
+  notify:
+    - Restart update-exporter
+
+- name: Set up update-exporter service
+  ansible.builtin.service:
+    name: updates-exporter
+    enabled: true
+    state: started
+
+- name: Open hole in firewall
+  ansible.builtin.firewalld:
+    zone: "{{ puppeteers_prometheus_updates_exporter_firewalld_zone }}"
+    port: "{{ puppeteers_prometheus_updates_exporter_port }}/tcp"
+    state: enabled
+    immediate: true
+    permanent: true
+  when: puppeteers_prometheus_updates_exporter_manage_firewalld

@@ -1,0 +1,5 @@
+---
+- name: Restart updates-exporter
+  ansible.builtin.service:
+    name: updates-exporter
+    state: restarted

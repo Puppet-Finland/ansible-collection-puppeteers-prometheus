@@ -1,0 +1,5 @@
+---
+puppeteers_prometheus_updates_exporter_manage_firewalld: false
+puppeteers_prometheus_updates_exporter_firewalld_zone: public
+puppeteers_prometheus_updates_exporter_port: 9101
+puppeteers_prometheus_updates_exporter_download_url: "https://puppeteers-public.hel1.your-objectstorage.com/updates_exporter-0.0.7-1.x86_64.rpm"
