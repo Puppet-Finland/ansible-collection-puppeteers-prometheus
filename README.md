@@ -9,6 +9,7 @@ This collections includes various related to Prometheus:
 * [puppeteers.prometheus.robot_collector](roles/robot_collector/README.md)
 * [puppeteers.prometheus.promtotwilio](roles/promtotwilio/README.md)
 * [puppeteers.prometheus.azure_metrics_exporter](roles/azure_metrics_exporter/README.md)
+* [puppeteers.prometheus.updates_exporter](roles/updates_exporter/README.md)
 
 See the roles for more details.
 
