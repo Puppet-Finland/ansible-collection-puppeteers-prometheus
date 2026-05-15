@@ -15,4 +15,8 @@ If you wish to manage firewalld rules:
 
     puppeteers_prometheus_updates_exporter_manage_firewalld: true
 
+If you wish to manage yum-utils then (required for restart-required check):
+
+    puppeteers_prometheus_updates_exporter_manage_yum_utils: true
+
 See [defaults/main.yml](defaults/main.yml) for a full list of parameters.
