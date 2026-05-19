@@ -29,3 +29,12 @@
     immediate: true
     permanent: true
   when: puppeteers_prometheus_updates_exporter_manage_firewalld
+
+  # Yum-Utils is required for the ability to check if OS needs reboot or not.
+- name: Ensure yum-utils installed on RedHat distros
+  ansible.builtin.dnf:
+    name: "yum-utils"
+    state: present
+  when:
+    - ansible_os_family == "RedHat"
+    - puppeteers_prometheus_updates_exporter_manage_yum_utils | default(false) | bool
