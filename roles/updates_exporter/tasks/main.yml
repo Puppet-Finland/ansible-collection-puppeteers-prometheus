@@ -2,24 +2,47 @@
 - name: Validate parameters
   ansible.builtin.assert:
     that:
-      - puppeteers_prometheus_updates_exporter_download_url is string
       - puppeteers_prometheus_updates_exporter_manage_firewalld is boolean
+      - puppeteers_prometheus_updates_exporter_base_url is string
       - puppeteers_prometheus_updates_exporter_firewalld_zone is string
       - puppeteers_prometheus_updates_exporter_port is number
+      - puppeteers_prometheus_updates_exporter_manage_config is boolean
 
-- name: Install updates-exporter
+- name: Install updates_exporter for Ubuntu
+  ansible.builtin.apt:
+    deb: "{{ puppeteers_prometheus_updates_exporter_base_url }}.deb"
+    state: present
+  notify:
+    - Restart updates_exporter
+  when: ansible_os_family == "Debian"
+
+- name: Install updates_exporter for RedHat
   ansible.builtin.dnf:
-    name: "{{ puppeteers_prometheus_updates_exporter_download_url }}"
+    name: "{{ puppeteers_prometheus_updates_exporter_base_url }}.rpm"
     state: present
     disable_gpg_check: true
   notify:
-    - Restart updates-exporter
+    - Restart updates_exporter
+  when: ansible_os_family == "RedHat"
 
-- name: Set up update-exporter service
-  ansible.builtin.service:
-    name: updates-exporter
-    enabled: true
-    state: started
+- name: Ensure config dir exists
+  ansible.builtin.file:
+    name: /etc/updates_exporter
+    mode: '0755'
+    owner: root
+    group: root
+    state: directory
+
+- name: Update updates_exporter config
+  ansible.builtin.template:
+        src: templates/config.yaml.j2
+        dest: /etc/updates_exporter/config.yaml
+        owner: root
+        group: root
+        mode: '0644'
+  notify:
+    - Restart updates_exporter
+  when: puppeteers_prometheus_updates_exporter_manage_config
 
 - name: Open hole in firewall
   ansible.builtin.firewalld:
@@ -29,12 +52,3 @@
     immediate: true
     permanent: true
   when: puppeteers_prometheus_updates_exporter_manage_firewalld
-
-  # Yum-Utils is required for the ability to check if OS needs reboot or not.
-- name: Ensure yum-utils installed on RedHat distros
-  ansible.builtin.dnf:
-    name: "yum-utils"
-    state: present
-  when:
-    - ansible_os_family == "RedHat"
-    - puppeteers_prometheus_updates_exporter_manage_yum_utils | default(false) | bool
