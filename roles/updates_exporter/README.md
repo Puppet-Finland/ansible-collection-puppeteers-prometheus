@@ -15,8 +15,20 @@ If you wish to manage firewalld rules:
 
     puppeteers_prometheus_updates_exporter_manage_firewalld: true
 
-If you wish to manage yum-utils then (required for restart-required check):
+Select which release version without the 'v':
 
-    puppeteers_prometheus_updates_exporter_manage_yum_utils: true
+
+    puppeteers_prometheus_updates_exporter_release_version: "0.1.3"
+
+If you wish to manage config yourself instead of using the default:
+
+
+    puppeteers_prometheus_updates_exporter_manage_config: true
+
+To tweak the configuration that gets managed:
+
+    puppeteers_prometheus_updates_exporter_port: 9101
+    puppeteers_prometheus_updates_exporter_interval_seconds: 3600
+    puppeteers_prometheus_updates_exporter_log_level: "info"
 
 See [defaults/main.yml](defaults/main.yml) for a full list of parameters.

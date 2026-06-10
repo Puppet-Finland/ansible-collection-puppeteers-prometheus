@@ -7,6 +7,10 @@
       - puppeteers_prometheus_updates_exporter_firewalld_zone is string
       - puppeteers_prometheus_updates_exporter_port is number
       - puppeteers_prometheus_updates_exporter_manage_config is boolean
+      - puppeteers_prometheus_updates_exporter_release_version is string
+      - puppeteers_prometheus_updates_exporter_log_level is string
+      - puppeteers_prometheus_updates_exporter_port is number
+      - puppeteers_prometheus_updates_exporter_interval_seconds is number
 
 - name: Install updates_exporter for Ubuntu
   ansible.builtin.apt:
