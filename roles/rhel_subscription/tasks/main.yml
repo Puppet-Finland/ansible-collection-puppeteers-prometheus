@@ -1,0 +1,30 @@
+- name: Check if subscription-manager binary exists
+  ansible.builtin.stat:
+    path: /usr/sbin/subscription-manager
+  register: sub_manager_stat
+  when: ansible_os_family == 'RedHat'
+
+- name: Install Bash script from role files
+  ansible.builtin.copy:
+    src: rhel_sub.sh
+    dest: /usr/local/bin/rhel_sub.sh
+    owner: root
+    group: root
+    mode: '0755'
+  register: script_installed
+  when:
+    - ansible_os_family == 'RedHat'
+    - sub_manager_stat.stat.exists | default(false)
+
+- name: Create an hourly cron job for the script
+  ansible.builtin.cron:
+    name: "Check RHEL Subscription"
+    minute: "0"
+    hour: "*"
+    job: "/usr/local/bin/rhel_sub.sh > /dev/null 2>&1"
+    user: root
+    state: present
+  when:
+    - ansible_os_family == 'RedHat'
+    - sub_manager_stat.stat.exists | default(false)
+    - script_installed is not skipped
