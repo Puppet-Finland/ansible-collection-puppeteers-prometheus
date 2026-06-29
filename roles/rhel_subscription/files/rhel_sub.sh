@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# Define the output path for Prometheus Textfile Collector
+OUTPUT_FILE="/var/lib/node_exporter/rhel_subscription.prom"
+OUTPUT_DIR=$(dirname "$OUTPUT_FILE")
+
+# Ensure the output directory exists
+if [ ! -d "$OUTPUT_DIR" ]; then
+    mkdir -p "$OUTPUT_DIR"
+fi
+
+# Define metric metadata for Prometheus
+METRIC_NAME="rhel_subscription_active"
+METRIC_HELP="Status of RHEL subscription: 1 if active/registered, 0 if inactive/not found/error."
+METRIC_TYPE="gauge"
+
+# Temporary file to prevent Prometheus from reading a partial write
+TEMP_FILE=$(mktemp)
+
+if ! command -v subscription-manager &> /dev/null; then
+    echo "Warning: subscription-manager command not found." >&2
+    CODE=1
+else
+    subscription-manager identity &> /dev/null
+    CODE=$?
+fi
+
+STATUS=0
+
+(( CODE == 0 )) && STATUS=1
+
+cat << EOF > "$TEMP_FILE"
+# HELP $METRIC_NAME $METRIC_HELP
+# TYPE $METRIC_NAME $METRIC_TYPE
+$METRIC_NAME $STATUS
+EOF
+
+mv "$TEMP_FILE" "$OUTPUT_FILE"
+chmod 644 "$OUTPUT_FILE"
+
