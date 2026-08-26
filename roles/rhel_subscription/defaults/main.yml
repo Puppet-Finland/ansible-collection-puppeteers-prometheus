@@ -1,3 +1,2 @@
-#SPDX-License-Identifier: MIT-0
 ---
-# defaults file for rhel_subscription
+puppeteers_prometheus_rhel_subscription_prom_textfile_dir: "/var/lib/node_exporter"
