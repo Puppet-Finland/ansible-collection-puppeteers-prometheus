@@ -24,3 +24,16 @@
     immediate: true
     permanent: true
   when: puppeteers_prometheus_prometheus_misc_manage_firewalld
+
+- name: Write SSL Certificates
+  ansible.builtin.include_role:
+    name: puppeteers.prometheus._ssl_certs
+  vars:
+    puppeteers_prometheus__ssl_certs_dir: "{{ puppeteers_prometheus_prometheus_misc_ssl_dir }}"
+    puppeteers_prometheus__ssl_certs_owner: "prometheus"
+    puppeteers_prometheus__ssl_certs_key: "{{ puppeteers_prometheus_prometheus_misc_ssl_key }}"
+    puppeteers_prometheus__ssl_certs_certificate: "{{ puppeteers_prometheus_prometheus_misc_ssl_certificate }}"
+
+  when:
+    - puppeteers_prometheus_prometheus_misc_ssl_key is defined
+    - puppeteers_prometheus_prometheus_misc_ssl_certificate is defined
