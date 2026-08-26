@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # Define the output path for Prometheus Textfile Collector
-OUTPUT_FILE="/var/lib/node_exporter/rhel_subscription.prom"
-OUTPUT_DIR=$(dirname "$OUTPUT_FILE")
+OUTPUT_DIR="{{ puppeteers_prometheus_rhel_subscription_prom_textfile_dir }}"
+OUTPUT_FILE="$OUTPUT_DIR/rhel_subscription.prom"
 
 # Ensure the output directory exists
 if [ ! -d "$OUTPUT_DIR" ]; then

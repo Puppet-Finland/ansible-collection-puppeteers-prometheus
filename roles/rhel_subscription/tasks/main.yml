@@ -5,13 +5,12 @@
   when: ansible_os_family == 'RedHat'
 
 - name: Install Bash script from role files
-  ansible.builtin.copy:
-    src: rhel_sub.sh
+  ansible.builtin.template:
+    src: rhel_sub.sh.j2
     dest: /usr/local/bin/rhel_sub.sh
     owner: root
     group: root
     mode: '0755'
-  register: script_installed
   when:
     - ansible_os_family == 'RedHat'
     - sub_manager_stat.stat.exists | default(false)
@@ -27,4 +26,3 @@
   when:
     - ansible_os_family == 'RedHat'
     - sub_manager_stat.stat.exists | default(false)
-    - script_installed is not skipped
