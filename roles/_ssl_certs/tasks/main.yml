@@ -1,0 +1,33 @@
+---
+- name: Validate parameters
+  ansible.builtin.assert:
+    that:
+      - puppeteers_prometheus__ssl_certs_certificate is defined
+      - puppeteers_prometheus__ssl_certs_key is defined
+      - puppeteers_prometheus__ssl_certs_dir is defined
+      - puppeteers_prometheus__ssl_certs_owner is defined
+
+- name: Ensure Service SSL Directory Exists
+  ansible.builtin.file:
+    path:  "{{ puppeteers_prometheus__ssl_certs_dir }}"
+    state: directory
+    owner: root
+    group: "{{ puppeteers_prometheus__ssl_certs_owner }}"
+    mode: '0750'
+
+- name: Write SSL Certificate
+  ansible.builtin.copy:
+    dest: "{{ puppeteers_prometheus__ssl_certs_dir }}/{{ puppeteers_prometheus__ssl_certs_owner }}.crt"
+    content: "{{ puppeteers_prometheus__ssl_certs_certificate }}"
+    owner: root
+    group: "{{ puppeteers_prometheus__ssl_certs_owner }}"
+    mode: '0644'
+
+- name: Write SSL Key
+  ansible.builtin.copy:
+    dest: "{{ puppeteers_prometheus__ssl_certs_dir }}/{{ puppeteers_prometheus__ssl_certs_owner }}.key"
+    content: "{{ puppeteers_prometheus__ssl_certs_key }}"
+    owner: "{{ puppeteers_prometheus__ssl_certs_owner }}"
+    group: "{{ puppeteers_prometheus__ssl_certs_owner }}"
+    mode: '0400'
+
